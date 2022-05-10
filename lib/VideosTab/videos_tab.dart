@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:rshb/VideosTab/stories.dart';
 import 'package:story_view/story_view.dart';
+import 'videos_detail_tab.dart';
 
-void main() => runApp(HomePage());
+void main() => runApp(VideosPage());
 
-class HomePage extends StatelessWidget {
+class VideosPage extends StatelessWidget {
+  static const title = 'Видео';
+  static const androidIcon = Icon(Icons.video_library);
+  static const iosIcon = Icon(Icons.video_library);
+
+  const VideosPage({Key? key, this.androidDrawer}) : super(key: key);
+
+  final Widget? androidDrawer;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -67,31 +75,6 @@ class Home extends StatelessWidget {
                     //     ),
                     //   ),
                     // ),
-                    // StoryItem.inlineImage(
-                    //   url:
-                    //       "https://www.timacad.ru/uploads/media/cache/full_image/uploads/images/20191021/1571646016_%D0%9C%D0%BE%D0%BD%D1%82%D0%B0%D0%B6%D0%BD%D0%B0%D1%8F%20%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C%201-100.jpg",
-                    //   controller: controller,
-                    //   caption: Text(
-                    //     "Omotuo & Nkatekwan; You will love this meal if taken as supper.",
-                    //     style: TextStyle(
-                    //       color: Colors.white,
-                    //       backgroundColor: Colors.black54,
-                    //       fontSize: 17,
-                    //     ),
-                    //   ),
-                    // ),
-                    // StoryItem.inlineImage(
-                    //   Image.network()
-                    //   controller: controller,
-                    //   caption: const Text(
-                    //     "Hektas, sektas and skatad",
-                    //     style: TextStyle(
-                    //       color: Colors.white,
-                    //       backgroundColor: Colors.black54,
-                    //       fontSize: 17,
-                    //     ),
-                    //   ),
-                    // )
                   ],
                   onStoryShow: (s) {
                     print("Showing a story");
@@ -107,8 +90,12 @@ class Home extends StatelessWidget {
               Material(
                 child: InkWell(
                   onTap: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => MoreStories()));
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MoreStories(),
+                      ),
+                    );
                   },
                   child: Container(
                     decoration: BoxDecoration(

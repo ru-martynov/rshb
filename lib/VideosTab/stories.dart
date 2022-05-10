@@ -29,7 +29,7 @@ class _MoreStoriesState extends State<MoreStories> {
           child: StoryView(
             storyItems: [
               StoryItem.text(
-                title: "Обычные сторисы с цветом на фоне",
+                title: "Чтобы закрыть сторис смахните вверх",
                 backgroundColor: Colors.blue,
               ),
               StoryItem.text(
@@ -65,17 +65,11 @@ class _MoreStoriesState extends State<MoreStories> {
             ],
             onStoryShow: (s) {
               print("Showing a story");
-              const Expanded(
-                child: Align(
-                  alignment: FractionalOffset.bottomCenter,
-                  child: Text('Смахните вверх, чтобы закрыть'),
-                ),
-              );
             },
             onComplete: () {
               print("Completed a cycle");
               Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => HomePage()));
+                  .push(MaterialPageRoute(builder: (context) => VideosPage()));
             },
             progressPosition: ProgressPosition.top,
             repeat: false,

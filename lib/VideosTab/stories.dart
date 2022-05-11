@@ -68,8 +68,8 @@ class _MoreStoriesState extends State<MoreStories> {
             },
             onComplete: () {
               print("Completed a cycle");
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => VideosPage()));
+              Navigator.pop(context); //of(context)
+              // .push(MaterialPageRoute(builder: (context) => VideosPage()));
             },
             progressPosition: ProgressPosition.top,
             repeat: false,

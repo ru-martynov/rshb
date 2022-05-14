@@ -1,6 +1,6 @@
 # rshb
 
-A new Flutter project.
+Ссылка на макет в Figma (https://www.figma.com/file/gMXHDncPF2mm3T7kkIjaDx/Untitled?node-id=0%3A1)
 
 ## Getting Started
 

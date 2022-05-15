@@ -81,6 +81,9 @@ class _MoreStoriesState extends State<MoreStories> {
           //     .push(MaterialPageRoute(builder: (context) => HomePage()));
           Navigator.pop(context);
         },
+        onSwipeDown: () {
+          Navigator.pop(context);
+        },
       ),
     );
   }

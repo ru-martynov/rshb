@@ -4,10 +4,13 @@
 // GitHub: @sw0git
 
 //Importing the necessary libraries
+import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:after_layout/after_layout.dart';
 // import 'VideosTab/videos_tab.dart';
 import 'first_tab.dart';
 
@@ -27,7 +30,67 @@ class App extends StatelessWidget {
       title: 'Ознакомление',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.green),
-      home: const OnBoardingPage(),
+      home: Splash(),
+    );
+  }
+}
+
+class SplashScreen extends StatefulWidget {
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Timer(Duration(seconds: 3), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Splash()),
+      );
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Image(image: AssetImage('assets/rshb.png')),
+      ),
+    );
+  }
+}
+
+class Splash extends StatefulWidget {
+  @override
+  SplashState createState() => new SplashState();
+}
+
+class SplashState extends State<Splash> with AfterLayoutMixin<Splash> {
+  Future checkFirstSeen() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool _seen = (prefs.getBool('seen') ?? false);
+
+    if (_seen) {
+      Navigator.of(context).pushReplacement(
+          new MaterialPageRoute(builder: (context) => new MyAdaptingApp()));
+    } else {
+      await prefs.setBool('seen', true);
+      Navigator.of(context).pushReplacement(
+          new MaterialPageRoute(builder: (context) => new OnBoardingPage()));
+    }
+  }
+
+  @override
+  void afterFirstLayout(BuildContext context) => checkFirstSeen();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Image(image: AssetImage('assets/rshb.png')),
+      ),
     );
   }
 }
@@ -82,7 +145,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         child: ElevatedButton(
           child: const Text(
             'Пропустить знакомство',
-            style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.bold),
           ),
           onPressed: () => _onIntroEnd(context),
         ),

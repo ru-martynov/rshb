@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 
 import 'package:rshb/VideosTab/stories.dart';
 import 'package:story_view/story_view.dart';
@@ -16,9 +17,9 @@ class VideosPage extends StatefulWidget {
   static const androidIcon = Icon(Icons.video_library);
   static const iosIcon = Icon(Icons.video_library);
 
-  const VideosPage({Key? key, this.androidDrawer}) : super(key: key);
+  const VideosPage({Key? key, this.androidNavigationBar}) : super(key: key);
 
-  final Widget? androidDrawer;
+  final Widget? androidNavigationBar;
 
   @override
   _VideosTabState createState() => _VideosTabState();
@@ -114,9 +115,10 @@ class _VideosTabState extends State<VideosPage> {
               Material(
                 child: InkWell(
                   onTap: () {
-                    Navigator.of(context).push(
+                    //Переход на MoreStories() без rootNavigation
+                    Navigator.of(context, rootNavigator: true).push(
                       MaterialPageRoute(
-                        builder: (BuildContext context) => MoreStories(),
+                        builder: (context) => MoreStories(),
                       ),
                     );
                   },
@@ -224,7 +226,7 @@ class _VideosTabState extends State<VideosPage> {
           // ),
         ],
       ),
-      drawer: widget.androidDrawer,
+      bottomNavigationBar: widget.androidNavigationBar,
       body: RefreshIndicator(
         key: _androidRefreshKey,
         onRefresh: _refreshData,
@@ -265,8 +267,6 @@ class _VideosTabState extends State<VideosPage> {
         // Add the widget _stories() here under the SliverAppBar.
         SliverAppBar(
           elevation: 0,
-          brightness: Brightness.light,
-          backgroundColor: Colors.white,
           // actions: [
           //   IconButton(
           //       icon: const Icon(Icons.shuffle),
